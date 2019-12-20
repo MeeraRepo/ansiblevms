@@ -1,0 +1,19 @@
+- name: provision new azure hosts
+  hosts: localhost
+  connection: local
+  tasks:
+      - name: Include Variables
+        include_vars: localhost_vars/localhost.yaml
+
+      - name: Azure-Prerequisites 
+        include: tasks/azurerg.yaml
+
+      - name: Deploy New Virtual machines
+        include: tasks/newvms.yaml
+
+      - name: Enable Winrm on Newly deployed VMs
+        include: tasks/winrm_enable.yaml
+
+
+
+    

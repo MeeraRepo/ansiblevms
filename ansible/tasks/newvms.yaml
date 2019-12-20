@@ -1,0 +1,20 @@
+- name: provision new Azure virtual host
+  with_items: '{{ instances }}'
+  azure_rm_virtualmachine:
+    name: "{{ item }}"
+    admin_username: '{{ vm_user }}'
+    admin_password: "{{ vm_password }}"
+    os_type: Windows
+    image:
+      offer: WindowsServer
+      publisher: MicrosoftWindowsServer
+      sku: 2016-Datacenter
+      version: latest
+    resource_group: "{{ resource_group }}"
+    state: present
+    vm_size: Standard_D1
+    managed_disk_type: Standard_LRS
+    storage_account_name: "{{ storage_name }}"
+    virtual_network_name: "{{ vnet_name }}"
+    subnet_name: "{{ subnet_name }}"
+    network_interfaces: "{{ nic_name }}"
