@@ -20,37 +20,12 @@
     resource_group: "{{ resource_group }}"
     address_prefix_cidr: 192.168.0.0/24
 
-- name: Create public IP address
-  azure_rm_publicipaddress:
-    resource_group: "{{ resource_group }}"
-    allocation_method: Static
-    name: "{{ public_ip }}"
-
-- name: Create Network Security Group that allows HTTP
-  azure_rm_securitygroup:
-    resource_group: "{{ resource_group }}"
-    name: "{{ nsg_group }}"
-    rules:
-      - name: HTTP
-        protocol: Tcp
-        destination_port_range: 80
-        access: Allow
-        priority: 1001
-        direction: Inbound
-
 - name: Create virtual network inteface card
   azure_rm_networkinterface:
     resource_group: "{{ resource_group }}"
     name: "{{ nic_name }}"
     virtual_network: "{{ vnet_name }}"
     subnet: "{{ subnet_name }}"
-    public_ip_name: "{{ public_ip }}"
-    security_group: "{{ nsg_group }}"
-    register: result_networkinterfaces
-    add_host:
-      hostname: "{{ item }}"
-      group: win
-    with_items: "{{ result_networkinterfaces.stdout_lines }}"
 
 - name: create Azure storage account
   azure_rm_storageaccount:

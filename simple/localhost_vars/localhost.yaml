@@ -1,14 +1,13 @@
- resource_group: TEST
- vnet_name: Test_vnet
+ resource_group: Pipeline
+ vnet_name: Pipeline_vnet
  vm_user: azureuser
- subnet_name: Test_subnet
- storage_name: testingstore
+ subnet_name: Pipeline_subnet
+ storage_name: pipelinesnpst
  vm_password: Test@123!Qaz
- public_ip: publicip
- nsg_group: NSG
- nic_name: Test
+ version: 1.9
  instances:
-     - win6
+     - win1
+     - win2
  location: eastus
     # Below is UTF-16 Base64 encoding for:
     #   Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force
